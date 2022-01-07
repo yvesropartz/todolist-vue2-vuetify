@@ -1,9 +1,10 @@
 <template>
   <v-row justify="center">
    
-      <v-card active-class="" 
+      <v-card 
+       :loading="loading"
       class="mx-auto my-12"
-    max-width="374">
+      max-width="374">
 
        
         <v-card-actions>

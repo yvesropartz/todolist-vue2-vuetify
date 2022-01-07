@@ -1,4 +1,5 @@
 <template>
+  <div>
   <!-- Menu de navigation gauche -->
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
@@ -23,6 +24,41 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
+    <!-- Barre de navigation top -->
+    <v-app-bar
+      app
+      color="primary"
+      dark
+      src="https://picsum.photos/1920/1080?random"
+      prominent
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+        ></v-img>
+      </template>
+      <!-- Permet d afficher ou pas la barre de nav gauche -->
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>appli Todo</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn to="/user" icon>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
+    </div>
 </template>
 
 <script>

@@ -6,7 +6,7 @@
   >
 
     <v-text-field v-if="vraiOuFaux === 'false'"
-      v-model="name"
+      v-model="username"
       :counter="10"
       :rules="nameRules"
       label="Name"
@@ -57,22 +57,32 @@
 </template>
 
 <script>
+  import userService from '../services/userService';
+
   export default {
+    name: 'Inscription',
+    components: {
+
+  },
 
       data(){
           return{
+          username: '',
+          email: '',
+          pwd: '',
+
           valid: true,
-          name: '',
+
           nameRules: [
                 v => !!v || 'Le nom est obligatoire',
                 v => (v && v.length <= 10) || 'il doit avoir au moins 10 caracteres',
           ],
-        email: '',
+
         emailRules: [
           v => !!v || 'l E-mail est obligatoire',
           v => /.+@.+\..+/.test(v) || 'E-mail non valide',
         ],
-        pwd: '',
+
         pwdRules: [
           v => (v && v.length <= 8) || 'il doit avoir au moins 8 caracteres',
           ],
@@ -102,8 +112,16 @@
     // }),
     
     methods: {
-      validate () {
+      async validate () {
         this.$refs.form.validate()
+        let result = await userService.inscription(
+                  this.username,
+                  this.email,
+                  this.pwd
+              );
+              if(result.success == true) {
+                this.$router.push({name: 'Home'})
+              }
       },
       reset () {
         this.$refs.form.reset()

@@ -4,7 +4,7 @@ import storage from '../plugins/storage.js';
 
 const userService = {
 
-    baseURI: 'http://localhost/PROMO/XandarWp/S03/wp-Backend-oCooking/public/wp-json/jwt-auth/v1',
+    baseURI: 'http://localhost/Spe/Todo-back-wp/public/wp-json/jwt-auth/V1',
 
     login: async function(login, password){
         const response = await axios.post(
@@ -50,7 +50,19 @@ const userService = {
         return false;
     },
 
-    // inscription: async function(username, email, password){},
+    inscription: async function(username, email, password){
+        const response = await axios.post(
+            'http://localhost/Spe/Todo-back-wp/public/wp-json/Todolist/v1/Inscription',
+             {
+                 username: username,
+                 email: email,
+                 password: password
+             }
+        ).catch(
+            function(){return false;}
+        );
+        return response.data;
+    },
  
     
 };

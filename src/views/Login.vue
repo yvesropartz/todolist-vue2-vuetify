@@ -117,7 +117,7 @@
       async validate () {
         this.$refs.form.validate()
         // si creation user 
-        if(this.vraiOuFaux === 'false') {
+        if(this.vraiOuFaux === 'true') {
         let result = await userService.inscription(
                   this.name,
                   this.email,

@@ -13,7 +13,7 @@
           <v-btn
             color="green darken-1"
             text
-            to="/login/true"
+            to="/login/false"
           >
             se connecter
           </v-btn>
@@ -21,7 +21,7 @@
           <v-btn
             color="green darken-1"
             text
-            to="/login/false"
+            to="/login/true"
           >
             s'enregistrer
           </v-btn>

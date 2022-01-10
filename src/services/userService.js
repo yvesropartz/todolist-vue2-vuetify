@@ -4,7 +4,7 @@ import storage from '../plugins/storage.js';
 
 const userService = {
 
-    baseURI: 'http://localhost/Spe/Todo-back-wp/public/wp-json/jwt-auth/V1',
+    baseURI: 'http://localhost/Spe/Todoback/public/wp-json/jwt-auth/V1',
 
     login: async function(login, password){
         const response = await axios.post(
@@ -52,7 +52,7 @@ const userService = {
 
     inscription: async function(username, email, password){
         const response = await axios.post(
-            'http://localhost/Spe/Todo-back-wp/public/wp-json/Todolist/v1/Inscription',
+            'http://localhost/Spe/Todoback/public/wp-json/Todolist/v1/Inscription',
              {
                  username: username,
                  email: email,

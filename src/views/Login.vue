@@ -5,15 +5,15 @@
     lazy-validation
   >
 
-    <v-text-field v-if="vraiOuFaux === 'false'"
-      v-model="username"
+    <v-text-field 
+      v-model="name"
       :counter="10"
       :rules="nameRules"
       label="Name"
       required
     ></v-text-field>
 
-    <v-text-field
+    <v-text-field v-if="vraiOuFaux === 'true'"
       v-model="email"
       :rules="emailRules"
       label="E-mail"
@@ -36,7 +36,7 @@
       class="mr-4"
       @click="validate"
     >
-      Validate
+      Envoyer
     </v-btn>
 
     <v-btn
@@ -51,23 +51,25 @@
       color="warning"
       @click="resetValidation"
     >
-      Reset Validation
+      Annuler
     </v-btn>
   </v-form>
 </template>
 
 <script>
   import userService from '../services/userService';
+  import storage from '../plugins/storage.js';
 
   export default {
     name: 'Inscription',
+
     components: {
 
   },
 
       data(){
           return{
-          username: '',
+          name: '',
           email: '',
           pwd: '',
 
@@ -75,7 +77,7 @@
 
           nameRules: [
                 v => !!v || 'Le nom est obligatoire',
-                v => (v && v.length <= 10) || 'il doit avoir au moins 10 caracteres',
+                v => (v && v.length <= 4) || 'il doit avoir au moins 10 caracteres',
           ],
 
         emailRules: [
@@ -114,13 +116,34 @@
     methods: {
       async validate () {
         this.$refs.form.validate()
+        // si creation user 
+        if(this.vraiOuFaux === 'false') {
         let result = await userService.inscription(
-                  this.username,
+                  this.name,
                   this.email,
                   this.pwd
               );
+                     console.log(result);
+
               if(result.success == true) {
                 this.$router.push({name: 'Home'})
+              }
+              } 
+              // authentification
+              else
+              {
+
+        let userData = await userService.login(
+                  this.name, 
+                  this.pwd
+              );
+
+            if(userData){
+                storage.set('userData', userData);
+                this.$router.push({name: 'home'});
+            } else {
+                this.loginFailed = true;
+            }
               }
       },
       reset () {
@@ -128,6 +151,8 @@
       },
       resetValidation () {
         this.$refs.form.resetValidation()
+        this.$router.push({name: 'Home'})
+
       },
     },
     created (){

@@ -35,7 +35,13 @@
       color="success"
       class="mr-4"
       @click="validate"
-    >
+          >
+      <v-icon
+          dark
+          left
+        >
+          mdi-checkbox-marked-circle
+        </v-icon>
       Envoyer
     </v-btn>
 
@@ -72,6 +78,7 @@
           name: '',
           email: '',
           pwd: '',
+          role: 'user',
 
           valid: true,
 
@@ -118,12 +125,14 @@
         this.$refs.form.validate()
         // si creation user 
         if(this.vraiOuFaux === 'true') {
+
         let result = await userService.inscription(
                   this.name,
                   this.email,
-                  this.pwd
+                  this.pwd,
+                  "role"
               );
-                     console.log(result);
+                     console.log(this.result);
 
               if(result.success == true) {
                 this.$router.push({name: 'Home'})
@@ -140,7 +149,8 @@
 
             if(userData){
                 storage.set('userData', userData);
-                this.$router.push({name: 'home'});
+                this.$store.commit('saveUser', userData);
+                this.$router.push({name: 'todolist'});
             } else {
                 this.loginFailed = true;
             }

@@ -50,13 +50,14 @@ const userService = {
         return false;
     },
 
-    inscription: async function(username, email, password){
+    inscription: async function(username, email, password, role){
         const response = await axios.post(
             'http://localhost/Spe/Todoback/public/wp-json/Todolist/v1/Inscription',
              {
                  username: username,
                  email: email,
-                 password: password
+                 password: password,
+                 role: role
              }
         ).catch(
             function(){return false;}
@@ -64,7 +65,9 @@ const userService = {
         return response.data;
     },
  
-    
+    logout: function() {
+        storage.unset('userData');
+      },
 };
 
 // Pour rendre le recipeService utilisable (importable) par d'autre composants il faut IMPERATIVEMENT l'exporter : 

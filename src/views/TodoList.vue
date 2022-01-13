@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    
+     <span  v-if="user">bonjour {{ user.user_nicename }}</span>
   <div class="d-flex">
 
     <v-text-field

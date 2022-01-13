@@ -1,9 +1,9 @@
 <template>
-  <v-app id="inspire">
-    
+  <v-app id="app">
+          <NavBarLeft />
     <!-- Page principale -->
     <v-main>
-      <NavBarLeft />
+
       <!-- insert des routes -->
       <router-view></router-view>
     </v-main>
@@ -16,6 +16,7 @@ import NavBarLeft from './Components/NavBarLeft.vue'
 export default {
   data: () => ({
     drawer: null,
+    name: 'App',
     items: [
       { title: "Todo", icon: "mdi-format-list-checks", to: "/" },
       { title: "About", icon: "mdi-help-box", to: "/about" },

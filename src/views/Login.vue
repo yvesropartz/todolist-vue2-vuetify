@@ -130,9 +130,8 @@
                   this.name,
                   this.email,
                   this.pwd,
-                  "role"
+                  "user"
               );
-                     console.log(this.result);
 
               if(result.success == true) {
                 this.$router.push({name: 'Home'})

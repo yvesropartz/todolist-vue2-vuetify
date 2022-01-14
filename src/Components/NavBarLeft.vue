@@ -52,16 +52,52 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn v-if="!user" to="/user" icon>
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
+<!-- bouton de connection ou de logout -->
+<!-- avec affichage d une bulle dinfo au survol -->
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+      <v-btn v-if="!user" to="/login/false" icon>
+        <v-icon 
+        color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on">
+        mdi-account</v-icon>
+        </v-btn>
+        </template>
+        <span>se connecter</span>
+        </v-tooltip>
+    <!-- deconnection -->
+         <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
       <v-btn v-if="user" to="/logout" icon>
-        <v-icon>mdi-exit-run</v-icon>
+        <v-icon 
+        color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on">
+          mdi-exit-run</v-icon>
       </v-btn>
+      </template>
+        <span>se deconnecter</span>
+        </v-tooltip>
+<!-- bouton de creation d'user -->
+<!-- avec affichage d une bulle dinfo au survol -->
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+      <v-btn to="/login/true" icon>
+        <v-icon 
+        color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >mdi-account-multiple-plus
+        </v-icon>
+        </v-btn>
+        </template>
+        <span>s'enregistrer</span>
+        </v-tooltip>
 
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
     </v-app-bar>
     </div>
 </template>
@@ -73,6 +109,7 @@ export default {
 
   data: () => ({
     drawer: null,
+    hover: false,
     store: store,
     items: [
       { title: "Todo", icon: "mdi-format-list-checks", to: "/" },

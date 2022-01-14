@@ -4,7 +4,7 @@ import storage from '../plugins/storage.js';
 
 const userService = {
 
-    baseURI: 'http://localhost/Spe/Todo-back-wp/public/wp-json/jwt-auth/V1',
+    baseURI: 'http://localhost/Spe/Todoback/public/wp-json/jwt-auth/V1',
 
     login: async function(login, password){
         const response = await axios.post(
@@ -50,21 +50,25 @@ const userService = {
         return false;
     },
 
-    inscription: async function(username, email, password){
+    inscription: async function(username, email, password, role){
         const response = await axios.post(
-            'http://localhost/Spe/Todo-back-wp/public/wp-json/Todolist/v1/Inscription',
+            'http://localhost/Spe/Todoback/public/wp-json/Todolist/v1/Inscription',
              {
                  username: username,
                  email: email,
-                 password: password
+                 password: password,
+                 role: role
              }
+             
         ).catch(
             function(){return false;}
         );
         return response.data;
     },
  
-    
+    logout: function() {
+        storage.unset('userData');
+      },
 };
 
 // Pour rendre le recipeService utilisable (importable) par d'autre composants il faut IMPERATIVEMENT l'exporter : 
